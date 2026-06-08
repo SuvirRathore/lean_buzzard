@@ -51,18 +51,18 @@ example (g : G) : g⁻¹ * g = 1 :=
 -- with the name of the axiom it found. Note also that you can instead *guess*
 -- the names of the axioms. For example what do you think the proof of `1 * a = a` is called?
 example (a b c : G) : a * b * c = a * (b * c) := by
-  sorry
+  rw[← mul_assoc]
 
 -- can be found with `library_search` if you didn't know the answer already
 example (a : G) : a * 1 = a := by
-  sorry
+  rw[mul_one]
 
 -- Can you guess the last two?
 example (a : G) : 1 * a = a := by
-  sorry
+  rw[one_mul]
 
 example (a : G) : a * a⁻¹ = 1 := by
-  sorry
+  rw[mul_inv_self]
 
 -- As well as the axioms, Lean has many other standard facts which are true
 -- in all groups. See if you can prove these from the axioms, or find them
@@ -71,26 +71,46 @@ example (a : G) : a * a⁻¹ = 1 := by
 variable (a b c : G)
 
 example : a⁻¹ * (a * b) = b := by
-  sorry
+  rw[← mul_assoc, inv_mul_self, one_mul]
 
 example : a * (a⁻¹ * b) = b := by
-  sorry
+  rw[← mul_assoc, mul_inv_self, one_mul]
+
 
 example {a b c : G} (h1 : b * a = 1) (h2 : a * c = 1) : b = c := by
   -- hint for this one if you're doing it from first principles: `b * (a * c) = (b * a) * c`
-  sorry
+  calc b = b * 1 := by rw[mul_one]
+    _ = b * (a * c) := by rw[h2]
+    _ = (b * a) * c := by rw[mul_assoc]
+    _ = 1 * c := by rw[h1]
+    _ = c := by rw[one_mul]
 
 example : a * b = 1 ↔ a⁻¹ = b := by
-  sorry
+  constructor
+  · intro h
+    calc a⁻¹ = a⁻¹ * 1 := by rw[mul_one]
+      _ = a⁻¹ * (a * b) := by rw[h]
+      _ = (a⁻¹ * a) * b := by rw[mul_assoc]
+      _ = 1 * b := by rw[inv_mul_self]
+      _ = b := by rw[one_mul]
+  · intro h
+    calc a * b = a * a⁻¹ := by rw[h]
+      _ = 1 := by rw[mul_inv_self]
 
 example : (1 : G)⁻¹ = 1 := by
-  sorry
+  apply inv_eq_iff_mul_eq_one.mpr
+  exact one_mul 1
 
 example : a⁻¹⁻¹ = a := by
-  sorry
+  apply inv_eq_iff_mul_eq_one.mpr
+  exact inv_mul_self a
 
 example : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
-  sorry
+  apply inv_eq_iff_mul_eq_one.mpr
+  calc (a * b) * (b⁻¹ * a⁻¹) = a * (b * b⁻¹) * a⁻¹ := by simp[mul_assoc]
+    _ = a * 1 * a⁻¹ := by rw[mul_inv_self]
+    _ = a * a⁻¹ := by rw[mul_one]
+    _ = 1 := by rw[mul_inv_self]
 
 /-
 
