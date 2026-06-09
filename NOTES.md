@@ -31,6 +31,13 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Found `inv_eq_iff_mul_eq_one` solo; meta-lesson — Mathlib often orients the iff opposite to a hand-built version, so check direction before `.mp`/`.mpr`.
 - new tools added: `calc`, named `theorem`/`lemma` reuse pattern, `inv_eq_iff_mul_eq_one`, `inv_one`, `group`
 
+## 09-06-2026 (Tuesday, Week 5.2)
+- Section 5 Sheet 2 (WeakGroup/BadGroup) complete.
+- WeakGroup: proved left axioms ⟹ right axioms via bootstrap chain `mul_left_cancel` → `mul_eq_of_eq_inv_mul` → `mul_one` → `mul_inv_self`. Each theorem may only use the ones above it — proof order = dependency order, can't forward-reference.
+- Key move: `apply mul_left_cancel` to introduce a common left factor (`a⁻¹`), turning `a * b = c` into a cancellable goal; only left-handed axioms available so every step must be left-handed.
+- BadGroup: all-`true` `Mul` fails `mul_one`; fixed with left-projection `a * b = a` (right identity holds, left identity breaks). All axiom obligations + the `¬∀ a, 1 * a = a` falsity close by `decide` on finite `Bool`.
+- new tools added: `class ... extends One G, Mul G, Inv G ... where` (defining own typeclass), anonymous-constructor instances `⟨true⟩`, `decide` (now reliable on finite types), apply-to-set-up-cancellation pattern
+
 ---
 
 # Tactics / lemma glossary
