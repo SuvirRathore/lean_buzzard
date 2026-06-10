@@ -38,6 +38,16 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - BadGroup: all-`true` `Mul` fails `mul_one`; fixed with left-projection `a * b = a` (right identity holds, left identity breaks). All axiom obligations + the `¬∀ a, 1 * a = a` falsity close by `decide` on finite `Bool`.
 - new tools added: `class ... extends One G, Mul G, Inv G ... where` (defining own typeclass), anonymous-constructor instances `⟨true⟩`, `decide` (now reliable on finite types), apply-to-set-up-cancellation pattern
 
+## 10-06-2026 (Wednesday, Week 5.3)
+- Section 5 Sheet 3 (subgroups + homomorphisms) complete — Section 5 (groups) fully done.
+- Subgroups are terms, not types (like `Set`): closure facts via dot notation `H.mul_mem`, `H.one_mem`, `H.inv_mem`.
+- Used `refine H.mul_mem ?_ ?_` to build a nested membership proof as a tree of named holes (clears the `refine ?_` parking-lot item).
+- Lattice notation: `H ⊓ K` (intersection), `H ⊔ K` (generated), `H ≤ K`, `⊥`, `⊤`. `a ∈ H ⊓ K ↔ a ∈ H ∧ a ∈ K` is `rfl`; for `⊔` only the `←` direction holds.
+- `Subgroup.mem_sup_left` / `Subgroup.mem_sup_right` (both subgroup args implicit) for the `⊔` case.
+- Meta-lesson: dot notation fills the FIRST argument whose type matches the receiver; if a lemma's hypothesis concerns a later same-typed argument (`mem_sup_right` is about the 2nd subgroup), dot misbinds — use the full `Namespace.lemma` name and let implicits infer (`exact Subgroup.mem_sup_right hk`).
+- Homomorphisms: `G →* H`; preservation lemmas `φ.map_mul`, `φ.map_inv`, `φ.map_one`; `ext` reduces `φ = ψ` to pointwise `∀ g, φ g = ψ g`.
+- new tools added: `refine` (named holes `?_`), `Subgroup.mul_mem`/`one_mem`/`inv_mem`, `Subgroup.mem_sup_left`/`mem_sup_right`, `MonoidHom.map_mul`/`map_inv`/`map_one`, `ext` for hom equality
+
 ---
 
 # Tactics / lemma glossary
