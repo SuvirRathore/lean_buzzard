@@ -28,7 +28,7 @@ example : (2 : ℕ) - 3 = 0 :=
   rfl
 
 -- subtraction on naturals "rounds up to 0" as it must return a natural
-example : (2 : ℤ) - 3 = -1 :=
+example : (2 : ℤ) - 3 = -1 := --add by to see goal
   rfl
 
 -- subtraction on integers works correctly
@@ -113,4 +113,28 @@ This is the first question in Sierpinski's book.
 Hint: n+1 divides n^2-1.
 
 -/
-example (n : ℕ) (hn : 0 < n) : n + 1 ∣ n ^ 2 + 1 ↔ n = 1 := sorry
+example (n : ℕ) (hn : 0 < n) : n + 1 ∣ n ^ 2 + 1 ↔ n = 1 := by
+  zify
+  constructor
+  intro h
+  have h' : (n : ℤ) + 1 ∣ n ^ 2 - 1 := by
+    have : (n : ℤ) ^ 2 - 1 = (n + 1) * (n - 1) := by ring
+    rw [this]
+    exact dvd_mul_right _ _
+  have h'' : (n : ℤ) + 1 ∣ 2 := by
+    have := dvd_sub h h'
+    ring_nf at this
+    rw[add_comm] at this
+    assumption
+
+  have hle : (2 : ℤ) ≤ n + 1 := by
+    have y : 1 ≤ n := hn
+    have x : 1 ≤ 1 := le_refl 1
+    have z : 1 + 1 ≤ n + 1 := add_le_add y x
+    exact_mod_cast z
+  have hle2 : (n : ℤ) + 1 ≤ 2 := Int.le_of_dvd (by norm_num) h''
+  linarith
+
+  intro h
+  rw[h]
+  norm_num
