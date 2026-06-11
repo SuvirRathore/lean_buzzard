@@ -114,6 +114,8 @@ Hint: n+1 divides n^2-1.
 
 -/
 example (n : ℕ) (hn : 0 < n) : n + 1 ∣ n ^ 2 + 1 ↔ n = 1 := by
+
+-- first attempt:
   zify
   constructor
   intro h
@@ -138,3 +140,21 @@ example (n : ℕ) (hn : 0 < n) : n + 1 ∣ n ^ 2 + 1 ↔ n = 1 := by
   intro h
   rw[h]
   norm_num
+
+--second attempt
+example (n : ℕ) (hn : 0 < n) : n + 1 ∣ n ^ 2 + 1 ↔ n = 1 := by
+  zify
+  constructor
+  · intro h
+    have h' : (n : ℤ) + 1 ∣ n ^ 2 - 1 := ⟨n - 1, by ring⟩
+
+    have h'' : (n : ℤ) + 1 ∣ 2 := by
+      have h2 := dvd_sub h h'
+      have e : (n : ℤ) ^ 2 + 1 - (n ^ 2 - 1) = 2 := by ring
+      rwa [e] at h2
+
+    have hle := Int.le_of_dvd (by norm_num) h''
+    have hn' : (1 : ℤ) ≤ n := by exact_mod_cast hn
+    linarith
+  · intro h
+    rw [h]; norm_num
