@@ -48,6 +48,14 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Homomorphisms: `G →* H`; preservation lemmas `φ.map_mul`, `φ.map_inv`, `φ.map_one`; `ext` reduces `φ = ψ` to pointwise `∀ g, φ g = ψ g`.
 - new tools added: `refine` (named holes `?_`), `Subgroup.mul_mem`/`one_mem`/`inv_mem`, `Subgroup.mem_sup_left`/`mem_sup_right`, `MonoidHom.map_mul`/`map_inv`/`map_one`, `ext` for hom equality
 
+## 11-06-2026 (Thursday, Week 5.4)
+- Section navigation corrected from the actual repo tree: no quotients section; Section06 = orderings/lattices, Section13 = measure theory, Section17 = analysis (calculus/Lᵖ), NOT algebraic curves. High-fit sections: 15 numberTheory, 14 UFDs/PIDs, 16 commutativeAlgebra, 19 algebraicNumberTheory, 21 galoisTheory.
+- Started Section 15 (Number Theory). Sheet 1 (Basic Number Theory) complete — mostly a casting tutorial.
+- Casting toolkit: `norm_cast` (pull `↑` out + cancel), `push_cast` (push `↑` in to leaves, then `ring`), `exact_mod_cast`/`assumption_mod_cast` (one-shot up to coercions), `zify` (ℕ goal → ℤ, regain subtraction), `lift` (ℤ → ℕ with nonneg proof). Pairs: out/in and up/down.
+- Solved `n+1 ∣ n²+1 ↔ n=1` via `zify` + divides-the-difference (`n+1 ∣ n²-1` and `∣ (n²+1)`, so `∣ 2`).
+- Idioms from review: `⟨n-1, by ring⟩` (give divisibility witness directly via anonymous constructor) beats rewrite + `dvd_mul_right`; `Int.le_of_dvd (by norm_num) h` turns `d ∣ k` into `d ≤ k`; use `·` focusing bullets across `constructor` to avoid branch-tangle; rewrite differences explicitly (`have e : ... = 2 := by ring; rwa [e]`) rather than fishing with `ring_nf`.
+- new tools added: `zify`, `lift`, `norm_cast`, `push_cast`, `exact_mod_cast`, `assumption_mod_cast`, `dvd_sub`, `Int.le_of_dvd`, `⟨witness, by ring⟩` divisibility pattern
+
 ---
 
 # Tactics / lemma glossary
