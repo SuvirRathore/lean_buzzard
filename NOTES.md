@@ -56,6 +56,15 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Idioms from review: `⟨n-1, by ring⟩` (give divisibility witness directly via anonymous constructor) beats rewrite + `dvd_mul_right`; `Int.le_of_dvd (by norm_num) h` turns `d ∣ k` into `d ≤ k`; use `·` focusing bullets across `constructor` to avoid branch-tangle; rewrite differences explicitly (`have e : ... = 2 := by ring; rwa [e]`) rather than fishing with `ring_nf`.
 - new tools added: `zify`, `lift`, `norm_cast`, `push_cast`, `exact_mod_cast`, `assumption_mod_cast`, `dvd_sub`, `Int.le_of_dvd`, `⟨witness, by ring⟩` divisibility pattern
 
+## 13-06-2026 (Saturday, Week 5.5)
+- Section 15 Sheet 2 `lemma1` (`x-3 ∣ x³-3 ↔ x-3 ∣ 24`) complete; skipped the optional 16-element enumeration (Buzzard-flagged CS grind).
+- Difference-trick over ℤ: `x-3 ∣ x³-27` via `⟨x²+3x+9, by ring⟩` (cofactor is `x²+3x+9`, not `x²+x+9`), then transfer with `dvd_sub`/`dvd_add` + `rwa [key]` where `key : … = 24` / `= x³-3` is proved by `ring`. Hoist the shared `x³-27` divisibility above `constructor`.
+- Debugging lesson: InfoView "No goals" + red squiggles ≠ done — Lean recovers from per-tactic errors and reaches an empty goal state with an invalid proof. Clear every red.
+- Reinforced: `·` focusing bullets per `↔` direction; a divisibility `calc` can't silently switch to `=` mid-chain — `rwa [key]` instead.
+- new tools added: `dvd_add`, `rwa [key]` difference-rewrite pattern
+
+
+
 ---
 
 # Tactics / lemma glossary
