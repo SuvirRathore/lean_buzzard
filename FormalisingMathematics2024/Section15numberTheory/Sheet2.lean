@@ -26,7 +26,21 @@ Bhavik (last year) managed to figure out how to do this.
 
 -/
 -- This isn't so hard
-theorem lemma1 (x : ℤ) : x - 3 ∣ x ^ 3 - 3 ↔ x - 3 ∣ 24 := sorry
+theorem lemma1 (x : ℤ) : x - 3 ∣ x ^ 3 - 3 ↔ x - 3 ∣ 24 := by
+
+  have h : (x - 3) ∣ x ^ 3 - 27 := ⟨x ^ 2 + 3 * x + 9, by ring⟩
+  constructor
+  · intro h'
+    have key : (x ^ 3 - 3) - (x ^ 3 - 27) = 24 := by ring
+    have := dvd_sub h' h
+    rwa [key] at this
+  · intro h'
+    have key : (x ^ 3 - 27) + 24 = x ^ 3 - 3 := by ring
+    have := dvd_add h h'
+    rwa [key] at this
+
+
+
 
 theorem int_dvd_iff (x : ℤ) (n : ℤ) (hn : n ≠ 0) : x ∣ n ↔ x.natAbs ∈ n.natAbs.divisors := by
   simp [hn]
