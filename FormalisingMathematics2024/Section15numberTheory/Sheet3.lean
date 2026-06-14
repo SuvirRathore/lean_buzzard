@@ -27,7 +27,13 @@ they're the same is fiddly)
 -- The number-theoretic heart of the argument.
 -- Note that "divides" is `\|` not `|`
 theorem divides_of_cong_four (t : ℕ) :
-    5 ∣ 4 * (65 * t + 4) ^ 2 + 1 ∧ 13 ∣ 4 * (65 * t + 4) ^ 2 + 1 := sorry
+    5 ∣ 4 * (65 * t + 4) ^ 2 + 1 ∧ 13 ∣ 4 * (65 * t + 4) ^ 2 + 1 := by
+    constructor
+    use 3380 * t ^ 2 + 416 * t + 13
+    ring
+    use 1300 * t ^ 2 + 160 * t + 5
+    ring
+
 
 -- There are arbitrarily large solutions to `5 ∣ 4*n²+1 ∧ 13 ∣ 4*n²+1`
 theorem arb_large_soln :
