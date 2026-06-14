@@ -63,6 +63,20 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Reinforced: `·` focusing bullets per `↔` direction; a divisibility `calc` can't silently switch to `=` mid-chain — `rwa [key]` instead.
 - new tools added: `dvd_add`, `rwa [key]` difference-rewrite pattern
 
+## Week 5 summary
+- Strand A launched: `lean_buzzard` repo set up; Section 5 (groups) completed in full (Sheets 1-3) in 3 study days.
+- Groups: Mathlib group API + axiom `rw`; own typeclass build (`WeakGroup`/`BadGroup`, left⟹right bootstrap, `decide` counterexample); subgroups + homs (`refine ?_`, dot-notation misbinding rule).
+- Section roadmap corrected from repo tree: no quotients/modules sections. High-fit = 15 numberTheory, 14 UFDs/PIDs, 16 commutativeAlgebra, 19 algebraicNumberTheory, 21 galoisTheory.
+- Section 15 (Number Theory) started, Sheets 1-2: casting toolkit (`norm_cast`/`push_cast`/`zify`/`lift`/`*_mod_cast`); divides-the-difference over ℕ (via `zify`) and ℤ; idioms `⟨witness, by ring⟩`, `Int.le_of_dvd`, `dvd_sub`/`dvd_add` + `rwa [key]`.
+- Pace: 5 sheets across 2 sections vs ~1-sheet/week baseline. Well ahead; sheets so far lower-difficulty. Debug rule banked: "No goals" + red squiggles ≠ valid proof.
+
+## Week 5 summary
+- Strand A launched: `lean_buzzard` repo set up; Section 5 (groups) completed in full (Sheets 1-3) in 3 study days.
+- Groups: Mathlib group API + axiom `rw`; own typeclass build (`WeakGroup`/`BadGroup`, left⟹right bootstrap, `decide` counterexample); subgroups + homs (`refine ?_`, dot-notation misbinding rule).
+- Section roadmap corrected from repo tree: no quotients/modules sections. High-fit = 15 numberTheory, 14 UFDs/PIDs, 16 commutativeAlgebra, 19 algebraicNumberTheory, 21 galoisTheory.
+- Section 15 (Number Theory) started, Sheets 1-2: casting toolkit (`norm_cast`/`push_cast`/`zify`/`lift`/`*_mod_cast`); divides-the-difference over ℕ (via `zify`) and ℤ; idioms `⟨witness, by ring⟩`, `Int.le_of_dvd`, `dvd_sub`/`dvd_add` + `rwa [key]`.
+- Pace: 5 sheets across 2 sections vs ~1-sheet/week baseline. Well ahead; sheets so far lower-difficulty. Debug rule banked: "No goals" + red squiggles ≠ valid proof.
+
 
 
 ---
