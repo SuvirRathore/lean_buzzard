@@ -78,6 +78,17 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Pace: 5 sheets across 2 sections vs ~1-sheet/week baseline. Well ahead; sheets so far lower-difficulty. Debug rule banked: "No goals" + red squiggles ≠ valid proof.
 
 
+## 15-06-2026 (Monday, Week 6.1)
+- Section 15 Sheet 3 (Sierpinski #3: infinitely many n with 5,13 ∣ 4n²+1) complete.
+- `divides_of_cong_four` two ways: witness `⟨3380t²+416t+13, by ring⟩` / `⟨1300t²+160t+5, by ring⟩`; ZMod route `rw [← ZMod.natCast_zmod_eq_zero_iff_dvd]; push_cast; ring_nf; reduce_mod_char`. Lesson: `ring_nf` leaves coefficients un-reduced mod n, so `decide` fails on free vars — `reduce_mod_char` reduces coeffs in `ZMod n` and finishes.
+- `arb_large_soln`: direct construction, NOT induction — `intro N; use 65*(N+1)+4; constructor; omega; apply divides_of_cong_four` (`apply` infers `t := N+1` by unification).
+- `infinite_iff_arb_large` (Buzzard's fiddly set-theory bridge): `Set.Infinite` is defeq `¬ S.Finite` — `apply hS` turns `False` into `S.Finite`. Fwd: bounded ⟹ `S ⊆ Set.Iic N`, finite via `Set.finite_Iic` + `Set.Finite.subset`. Rev: `hfin.bddAbove` gives `b ∈ upperBounds S`, applied as function `hb hnS : n ≤ b`, contradict via `omega`.
+- `Set.Iic a` = {x | x ≤ a} = (-∞,a]. Ixx naming: I + left(i/o) + right(i/o/c), i=infinite o=open c=closed → Iic/Ici/Iio/Ioi/Icc/Ico/Ioc/Ioo. `Set.` and `Finset.` versions both exist. Find lemmas via `Set.finite_`+autocomplete, `exact?`, or Loogle.
+- `obtain ⟨b, hb⟩ := hfin.bddAbove` and `obtain ⟨n, hn, hnS⟩ := h b` — destructure existentials/conjunctions inline.
+- `push_neg` only pushes through connectives (¬∀/¬∃/¬∧/¬¬), NOT atomic negations like `¬(x ≤ N)` — use `rw [not_le]` or just `omega`.
+- new tools added: `Set.Iic`/`Ixx` family, `Set.finite_Iic`, `Set.Finite.subset`, `BddAbove`/`upperBounds` (apply as function), `Set.Finite.bddAbove`, `reduce_mod_char`, `obtain`, `not_le`
+
+
 
 ---
 
