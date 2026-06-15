@@ -26,25 +26,66 @@ they're the same is fiddly)
 
 -- The number-theoretic heart of the argument.
 -- Note that "divides" is `\|` not `|`
+
 theorem divides_of_cong_four (t : ℕ) :
     5 ∣ 4 * (65 * t + 4) ^ 2 + 1 ∧ 13 ∣ 4 * (65 * t + 4) ^ 2 + 1 := by
+
+
+
+    --witness proof vs mod 5 proof
+
     constructor
-    use 3380 * t ^ 2 + 416 * t + 13
-    ring
-    use 1300 * t ^ 2 + 160 * t + 5
-    ring
+    rw[← ZMod.nat_cast_zmod_eq_zero_iff_dvd]
+    push_cast
+    ring_nf
+    reduce_mod_char
+    rw [← ZMod.nat_cast_zmod_eq_zero_iff_dvd]
+    push_cast
+    ring_nf
+    reduce_mod_char
+
+    --exact ⟨ 3380 * t ^ 2 + 416 * t + 13, by ring ⟩
+    --use 1300 * t ^ 2 + 160 * t + 5
+    --ring
 
 
 -- There are arbitrarily large solutions to `5 ∣ 4*n²+1 ∧ 13 ∣ 4*n²+1`
 theorem arb_large_soln :
-    ∀ N : ℕ, ∃ n > N, 5 ∣ 4 * n ^ 2 + 1 ∧ 13 ∣ 4 * n ^ 2 + 1 := sorry
+    ∀ N : ℕ, ∃ n > N, 5 ∣ 4 * n ^ 2 + 1 ∧ 13 ∣ 4 * n ^ 2 + 1 := by
+    rintro x
+    use 65 * (x + 1) + 4
+    constructor
+    omega
+    apply divides_of_cong_four
+
 
 #check Set.Infinite
 
 -- This is not number theory any more, it's switching between two
 -- interpretations of "this set of naturals is infinite"
+
 theorem infinite_iff_arb_large (S : Set ℕ) :
-    S.Infinite ↔ ∀ N, ∃ n > N, n ∈ S := sorry
+    S.Infinite ↔ ∀ N, ∃ n > N, n ∈ S := by
+    constructor
+    intro hs N
+    by_contra hc
+    push_neg at hc
+    apply hs
+    apply Set.Finite.subset (Set.finite_Iic N)
+    intro x hx
+    rw [Set.mem_Iic]
+    by_contra hxN
+    exact hc x (by linarith) hx
+
+    intro h hfin
+    obtain ⟨b, hb⟩ := hfin.bddAbove
+    obtain ⟨n, hn, hnS⟩ := h b
+    have := hb hnS
+    linarith
+
+    --can replace linarith with omega
+
+
 
 -- Another way of stating the question (note different "|" symbols:
 -- there's `|` for "such that" in set theory and `\|` for "divides" in number theory)
