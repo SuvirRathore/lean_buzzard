@@ -83,7 +83,7 @@ theorem infinite_iff_arb_large (S : Set ℕ) :
     have := hb hnS
     linarith
 
-    --can replace linarith with omega
+    --replace linarith with omega
 
 
 
