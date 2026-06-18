@@ -33,6 +33,7 @@ example (n : ℕ) (hn : 0 < n) : -- remark; not going to use hn
     (169 : ℤ) ∣ 3 ^ (3 * n + 3) - 26 * n - 27 := by
   clear hn
   -- told you
-  sorry
+
+
 
 end Section15Sheet4
