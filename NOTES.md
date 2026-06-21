@@ -89,6 +89,11 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - new tools added: `Set.Iic`/`Ixx` family, `Set.finite_Iic`, `Set.Finite.subset`, `BddAbove`/`upperBounds` (apply as function), `Set.Finite.bddAbove`, `reduce_mod_char`, `obtain`, `not_le`
 
 
+## Week 6 summary
+- One study day (6.1); busy week otherwise, tracks paused guilt-free per schedule.
+- Section 15 Sheet 3 (Sierpinski #3) complete: ZMod modular arithmetic (`reduce_mod_char`), direct-construction existence proof, and the `Set.Infinite ↔ ∀ N ∃ n > N` bridge (`Set.Iic`/`finite_Iic`/`Finite.subset`, `BddAbove`/`upperBounds`).
+- New API consolidated: `ZMod` divisibility, `Ixx` interval naming scheme, `Set.Finite` toolkit, `obtain`, `reduce_mod_char`.
+- Pace: 1 sheet this week (= baseline) due to time; still well ahead cumulatively (Section 5 complete + Section 15 Sheets 1-3).
 
 ---
 
