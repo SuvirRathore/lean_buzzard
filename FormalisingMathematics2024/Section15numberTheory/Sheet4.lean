@@ -32,7 +32,26 @@ which is `26*26n+26*26 = 13*13*something`
 example (n : ℕ) (hn : 0 < n) : -- remark; not going to use hn
     (169 : ℤ) ∣ 3 ^ (3 * n + 3) - 26 * n - 27 := by
   clear hn
-  -- complete
+  induction n with
+  | zero =>
+    simp
+    norm_num
+  | succ d ih =>
+    rw[pow_add 3 (3 * Nat.succ d) 3, mul_comm, Nat.succ_eq_add_one, mul_add, mul_one]
+    have ih2 : (169 : ℤ) ∣ 3 ^ 3 * (3 ^ (3 * d + 3) - 26 * d - 27) := by
+      apply dvd_mul.mpr
+      use 1 , 169
+      constructor
+      norm_num
+      constructor
+      exact ih
+      norm_num
+    have h : (169 : ℤ) ∣ 676 * (d + 1) := ⟨4 * (d + 1), by ring⟩   -- 676(d+1) = 169·4(d+1)
+
+    convert dvd_add ih2 h using 1
+    push_cast
+    ring
+
 
 
 
