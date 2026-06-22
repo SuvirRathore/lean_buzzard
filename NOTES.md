@@ -95,6 +95,14 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - New API consolidated: `ZMod` divisibility, `Ixx` interval naming scheme, `Set.Finite` toolkit, `obtain`, `reduce_mod_char`.
 - Pace: 1 sheet this week (= baseline) due to time; still well ahead cumulatively (Section 5 complete + Section 15 Sheets 1-3).
 
+
+## 22-06-2026 (Monday, Week 7.1)
+- Section 15 Sheet 4 (Sierpinski #4: `169 ∣ 3^(3n+3)-26n-27`) complete — full induction proof.
+- Named-IH induction syntax on a real induction: `induction n with | zero => norm_num | succ d ih => ...`. Base case closed by `norm_num` (concrete `169 ∣ 3^3-27 = 169 ∣ 0`).
+- Built `ih2 : 169 ∣ 3^3 * E` from `ih : 169 ∣ E` via the `a ∣ b → a ∣ c*b` lemma (`dvd_mul_left`/`Dvd.dvd.mul_left`, found with `exact?`); no need to re-derive. Coercion `↑d` is auto-inserted — write plain `d`, the `(169:ℤ)` pins the type.
+- `convert <almost-right term> using 1` accepts a proof of something close to the goal and leaves the residual equality; `using 1` caps recursion depth so `a ∣ X` vs `a ∣ Y` gives the single goal `X = Y`. Close with `push_cast; ring`.
+- KEY debugging lesson: if `ring_nf`/`simp` refuses to close a residual, check the two sides are actually EQUAL first (subtract them) — a false goal means the error is upstream. Here `dvd_sub ih2 ih` divides `26·E` (wrong); correct is `dvd_add ih2 h` where `h : 169 ∣ 676*(d+1) = ⟨4*(d+1), by ring⟩` and `target = 27·E + 676(d+1)`.
+- new tools added: `induction ... with | zero => | succ d ih =>` named IH, `convert ... using 1`, `dvd_mul_left`/`dvd` multiplication lemma, `dvd_add` (vs `dvd_sub`), `↑` (`\u`) auto-coercion
 ---
 
 # Tactics / lemma glossary
