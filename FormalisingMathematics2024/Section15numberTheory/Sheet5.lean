@@ -28,6 +28,16 @@ and so all of the a(k) are 16 mod 19 and we're done
 
 theorem sixteen_pow_sixtyfour_mod_nineteen : (16 : ZMod 19) ^ 64 = 16 := by rfl
 
-example (k : ℕ) : 19 ∣ 2 ^ 2 ^ (6 * k + 2) + 3 := sorry
+example (k : ℕ) : 19 ∣ 2 ^ 2 ^ (6 * k + 2) + 3 := by
+  apply (ZMod.nat_cast_zmod_eq_zero_iff_dvd _ 19).mp
+  push_cast
+  induction k with
+  | zero => decide
+  | succ d ih =>
+    rw[Nat.succ_eq_add_one, mul_add, add_assoc, add_comm (6 * 1), ← add_assoc, pow_add, pow_mul, mul_one]
+    have h : (2 : ZMod 19) ^ 2 ^ (6 * d + 2) = -3 := add_eq_zero_iff_eq_neg.mp ih
+    rw[h]
+    decide
+
 
 end Section15Sheet5
