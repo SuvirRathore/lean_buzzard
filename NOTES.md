@@ -103,6 +103,16 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - `convert <almost-right term> using 1` accepts a proof of something close to the goal and leaves the residual equality; `using 1` caps recursion depth so `a ∣ X` vs `a ∣ Y` gives the single goal `X = Y`. Close with `push_cast; ring`.
 - KEY debugging lesson: if `ring_nf`/`simp` refuses to close a residual, check the two sides are actually EQUAL first (subtract them) — a false goal means the error is upstream. Here `dvd_sub ih2 ih` divides `26·E` (wrong); correct is `dvd_add ih2 h` where `h : 169 ∣ 676*(d+1) = ⟨4*(d+1), by ring⟩` and `target = 27·E + 676(d+1)`.
 - new tools added: `induction ... with | zero => | succ d ih =>` named IH, `convert ... using 1`, `dvd_mul_left`/`dvd` multiplication lemma, `dvd_add` (vs `dvd_sub`), `↑` (`\u`) auto-coercion
+
+## 23-06-2026 (Tuesday, Week 7.2)
+- Section 15 Sheet 5 (Sierpinski #5: `19 ∣ 2^(2^(6k+2))+3`) complete — nested exponent tower, induction in ZMod 19.
+- Reframe: `apply (ZMod.nat_cast_zmod_eq_zero_iff_dvd _ 19).mp` then `push_cast` (note: pin the modulus `_ 19` explicitly). InfoView won't print the `: ZMod 19` ascription, so a goal like `2^... + 3 = 0` can already BE in ZMod 19 — a stray `-19`/negative in a residual is the tell that you're in ZMod, not ℕ.
+- Exponent-tower step: `rw [Nat.succ_eq_add_one, mul_add, add_assoc, add_comm (6*1), ← add_assoc, pow_add, pow_mul, mul_one]` turns `2^(2^(6(d+1)+2))` into `(2^(2^(6d+2)))^64`.
+- Convert IH `x + 3 = 0` → `x = -3` via `add_eq_zero_iff_eq_neg.mp ih`, then `rw [h]; decide` — goal `(-3:ZMod 19)^64 + 3 = 0` is concrete, so `decide` closes it outright (no need for the `16^64=16` helper).
+- KEY lesson: `ring`/`linear_combination` are characteristic-blind — they can't prove `-19 = 0` in ZMod 19. Use `decide` or `reduce_mod_char` for characteristic-dependent residuals.
+- new tools added: `add_eq_zero_iff_eq_neg`, `pow_add`, `pow_mul`, `(ZMod.nat_cast_zmod_eq_zero_iff_dvd _ n).mp` apply-pattern
+
+
 ---
 
 # Tactics / lemma glossary
