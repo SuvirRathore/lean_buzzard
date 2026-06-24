@@ -13,6 +13,7 @@ in number theory".
 
 -/
 
-example : 13 ∣ 2 ^ 70 + 3 ^ 70 := sorry
+example : 13 ∣ 2 ^ 70 + 3 ^ 70 := by
+
 
 end Section15Sheet6
