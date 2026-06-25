@@ -14,6 +14,9 @@ in number theory".
 -/
 
 example : 13 ∣ 2 ^ 70 + 3 ^ 70 := by
-
+  apply (ZMod.nat_cast_zmod_eq_zero_iff_dvd _ 13).mp
+  push_cast
+  ring_nf
+  decide
 
 end Section15Sheet6
