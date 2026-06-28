@@ -112,6 +112,23 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - KEY lesson: `ring`/`linear_combination` are characteristic-blind — they can't prove `-19 = 0` in ZMod 19. Use `decide` or `reduce_mod_char` for characteristic-dependent residuals.
 - new tools added: `add_eq_zero_iff_eq_neg`, `pow_add`, `pow_mul`, `(ZMod.nat_cast_zmod_eq_zero_iff_dvd _ n).mp` apply-pattern
 
+## 25-06-2026 (Thursday, Week 7.4)
+- Section 15 Sheet 6 (Kraichik: 13 ∣ 2⁷⁰+3⁷⁰) complete — concrete claim, no variable ⟹ no induction; ZMod 13 reframe + evaluate.
+- maxRecDepth lesson: bare `decide` on ZMod powers (2^70 unfolding) hits "maximum recursion depth"; precede with `ring_nf` (or `reduce_mod_char`, or raise `maxRecDepth`). Refined rule: concrete + small modulus ⟹ ZMod + `ring_nf; decide`.
+- Section 15 Sheet 7 (Sierpinski #9: ∑i³ ∣ 3∑i⁵ over range n) STARTED — the Finset weak-spot sheet.
+- Engine: `Finset.sum_range_succ` / `Finset.sum_range_zero`. Don't induct on the divisibility (divisor changes with n) — induct on an equation.
+- Dead-end found: inducting the single identity `3∑i⁵ = (∑i³)(2n²−2n−1)` is underpowered — step needs `∑i³`'s closed form, but `ring` keeps the sum opaque.
+- Pivot (next week): prove integer-scaled closed forms separately — `H3: 4∑i³=(n²−n)²`, `H5: 12∑i⁵=(n²−n)²(2n²−2n−1)` (each inducts cleanly, `ring` closes post-IH); substitute H3→H5, cancel 4 (`mul_left_cancel₀`) ⟹ `3∑i⁵=∑i³·(2n²−2n−1)`; descend to ℕ via `Int.natCast_dvd_natCast`.
+- ℕ-subtraction trap recurred (cofactor `2n²−2n−1` truncates in ℕ) — state over ℤ with casts.
+- new tools added: `Finset.sum_range_succ`, `Finset.sum_range_zero`, `mul_left_cancel₀`, `Int.natCast_dvd_natCast` (planned)
+
+## Week 7 summary
+- Section 15 (Number Theory) Sheets 4-6 completed + Sheet 7 started — 6 of 8 sheets done.
+- Sheet 4: `169 ∣ 3^(3n+3)-26n-27` induction (`convert ... using 1`, dvd_add decomposition). Sheet 5: `19 ∣ 2^(2^(6k+2))+3` ZMod 19 induction (exponent-tower split `pow_add`/`pow_mul`; ring/linear_combination are characteristic-blind → `decide`). Sheet 6: `13 ∣ 2⁷⁰+3⁷⁰` concrete ZMod + `ring_nf; decide` (maxRecDepth on powers).
+- Sheet 7 (∑i³ ∣ 3∑i⁵, the Finset sheet) in progress: closed-form-first strategy (H3/H5 integer-scaled, combine + cancel 4, descend to ℕ) — finishing next week.
+- Threads banked: ZMod characteristic-awareness (decide/reduce_mod_char, not ring); ℕ-subtraction → cast to ℤ; induct on equations, not varying-divisor divisibilities.
+- Pace: 3 sheets + 1 partial vs ~1/week baseline despite a 3-day week. Section 15 nearly complete.
+
 
 ---
 
