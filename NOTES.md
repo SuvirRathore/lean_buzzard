@@ -129,6 +129,16 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Threads banked: ZMod characteristic-awareness (decide/reduce_mod_char, not ring); ℕ-subtraction → cast to ℤ; induct on equations, not varying-divisor divisibilities.
 - Pace: 3 sheets + 1 partial vs ~1/week baseline despite a 3-day week. Section 15 nearly complete.
 
+## 09-07-2026 (Thursday, Week 9.4)
+- Section 15 Sheet 7 (Sierpinski #9: `∑i³ ∣ 3∑i⁵` over `range n`) COMPLETE — the Finset weak-spot sheet, hardest of the section.
+- Strategy that worked: prove integer-scaled closed forms separately, combine, cancel, descend. `H3: 4∑i³=(n²−n)²`, `H5: 12∑i⁵=(n²−n)²(2n²−2n−1)`, each by induction (`Finset.sum_range_succ`; `push_cast`; `ring` closes post-IH since no opaque sum remains).
+- KEY lesson: `induction n` generalizes `n` and CAPTURES any earlier `n`-dependent hypothesis (a previously-proved `H3`) into the induction, producing a phantom subgoal (saw `4*∑i³=(d²-d)²` appear inside `H5`). Fix: lift helpers to standalone `∀ m` lemmas (`intro m; induction m`), or `clear` them before inducting.
+- Combine: `linear_combination`/`ring` treat coerced subterms as syntactic atoms, so cast-placement mismatches leave a nonzero residual — `push_cast at e3 e5 ⊢` normalizes all coercions first, then `linear_combination e5 - (2n²-2n-1)*e3` balances.
+- Can't divide in ℤ: to cancel a scalar, prove the scaled equation `4*(3∑i⁵) = 4*(∑i³*c)` then `mul_left_cancel₀ (by norm_num : (4:ℤ) ≠ 0) key`.
+- Equation → divisibility: `a = b*c` gives `b ∣ a` via `⟨c, by rw [hZ]; ring⟩`.
+- ℤ → ℕ divisibility descent: `rw [← Int.natCast_dvd_natCast]; push_cast; exact hdvdZ`, or the one-liner `exact_mod_cast hdvdZ` (push casts through sums via `Nat.cast_sum`).
+- new tools added: standalone `∀ m` helper-lemma pattern (avoid induction capture), `linear_combination` (with `push_cast` prep), `mul_left_cancel₀`, `Int.natCast_dvd_natCast`, `exact_mod_cast` for dvd bridge, `Finset.sum_range_succ`
+
 
 ---
 
