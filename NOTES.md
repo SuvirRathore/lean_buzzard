@@ -139,6 +139,17 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - ℤ → ℕ divisibility descent: `rw [← Int.natCast_dvd_natCast]; push_cast; exact hdvdZ`, or the one-liner `exact_mod_cast hdvdZ` (push casts through sums via `Nat.cast_sum`).
 - new tools added: standalone `∀ m` helper-lemma pattern (avoid induction capture), `linear_combination` (with `push_cast` prep), `mul_left_cancel₀`, `Int.natCast_dvd_natCast`, `exact_mod_cast` for dvd bridge, `Finset.sum_range_succ`
 
+## 10-07-2026 (Friday, Week 9.5)
+- Review/consolidation session on Sheet 7 (no new sheet).
+- Sheet 7 strategy, 4 moves: (1) closed forms as standalone `∀ m` lemmas, integer-scaled to stay in ℤ (`4∑i³`, `12∑i⁵`), each by `sum_range_succ`/`push_cast`/`ring` induction; (2) combine via `linear_combination` (after `push_cast at e3 e5 ⊢`); (3) cancel the scalar with `mul_left_cancel₀` (can't divide in ℤ); (4) equation→dvd (`⟨cofactor, by rw [hZ]; ring⟩`) then descend ℤ→ℕ (`exact_mod_cast`).
+- Lessons banked from the 4 detours:
+  * If an inductive step needs a sum's VALUE, prove its closed form separately — `ring` won't discover it inside an opaque sum.
+  * `induction x` generalizes `x` AND captures every hypothesis mentioning `x` → prove reusable helpers as standalone `∀ m` lemmas (or `clear` first).
+  * `linear_combination`/`ring` match coerced subterms as syntactic atoms → `push_cast` everything first. (This is the #1 recurring time-sink all section.)
+  * Equation vs divisibility and ℤ vs ℕ are two separate bridges — cross each deliberately, don't `exact` across them.
+- Through-line for Section 15: friction is cast hygiene / the ℕ-ℤ boundary, never the mathematics. Highest-leverage habit going forward = pre-emptive `push_cast` + tracking which type each `have` lives in.
+- Reusable toolkit: integer-scaling to avoid division; standalone `∀ m` helpers; `push_cast` as `ring`/`linear_combination` prep; `mul_left_cancel₀`; equation→dvd→cast-descent closing ritual.
+
 
 ---
 
