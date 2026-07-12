@@ -150,6 +150,13 @@ Daily block format (dash bullets, inline backticks on tactic/lemma names):
 - Through-line for Section 15: friction is cast hygiene / the ℕ-ℤ boundary, never the mathematics. Highest-leverage habit going forward = pre-emptive `push_cast` + tracking which type each `have` lives in.
 - Reusable toolkit: integer-scaling to avoid division; standalone `∀ m` helpers; `push_cast` as `ring`/`linear_combination` prep; `mul_left_cancel₀`; equation→dvd→cast-descent closing ritual.
 
+## Week 9 summary
+- Two study days (9.4, 9.5) after Week 8 gap (busy, absorbed per schedule).
+- Section 15 Sheet 7 (∑i³ ∣ 3∑i⁵, the Finset weak-spot sheet) COMPLETE — hardest of the section. Strategy: standalone `∀ m` closed-form lemmas (integer-scaled), `linear_combination` combine (post-`push_cast`), `mul_left_cancel₀`, equation→dvd→`exact_mod_cast` descent.
+- Consolidation session: Sheet 7 retrospective. Lessons: induction captures dependent hypotheses; closed forms must be separate lemmas; `push_cast` before `linear_combination`; equation/dvd and ℤ/ℕ are separate bridges.
+- Through-line: Section 15 friction = coercion boundary, not maths. Drill = pre-emptive `push_cast`, type-tracking per `have`.
+- Status: Section 15 at 7/8. Sheet 8 next, then section complete and next-section pick (14/16/19/21).
+
 
 ---
 
