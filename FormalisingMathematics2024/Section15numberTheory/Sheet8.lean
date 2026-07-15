@@ -29,7 +29,7 @@ Wilson's theorem tells us that `(p-1)! = -1 mod p` if p is prime.
 theorem exists_sqrt_neg_one_of_one_mod_four
     (p : ℕ) (hp : p.Prime) (hp2 : ∃ n, p = 4 * n + 1) :
     ∃ i : ZMod p, i ^ 2 = -1 := by
-
-    use ((p-1)/2).factorial
+    haveI := Fact.mk hp
+    obtain ⟨n, hn⟩ := hp2
 
 end Section15Sheet8
