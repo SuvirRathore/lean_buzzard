@@ -31,5 +31,5 @@ theorem exists_sqrt_neg_one_of_one_mod_four
     ∃ i : ZMod p, i ^ 2 = -1 := by
     haveI := Fact.mk hp
     obtain ⟨n, hn⟩ := hp2
-
+    set i := ∏ j in Finset.Icc 1 (2 * n), (j : ZMod p) with hi
 end Section15Sheet8
